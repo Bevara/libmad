@@ -1,0 +1,17 @@
+{
+    "name": "libmad",
+    "description": "MAD decoder",
+    "filters": [
+        "maddec",
+        "rfmp3"
+    ],
+    "help": "This filter decodes MPEG 1/2 audio streams through libmad library.",
+    "support": [
+        "audio"
+    ],
+    "sources": "https://codeload.github.com/Bevara/libmad/zip/refs/heads/main",
+    "filter_source": {
+        "maddec": "dec_mad.c",
+        "rfmp3": "reframe_mp3.c"
+    }
+}
