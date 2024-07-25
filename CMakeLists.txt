@@ -8,6 +8,7 @@ add_definitions(-fpic)
 SET(LIBMAD_SRC
         ${CMAKE_CURRENT_SOURCE_DIR}/dec_mad.c
         ${CMAKE_CURRENT_SOURCE_DIR}/reframe_mp3.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/av_parsers.c
 )
 
 SET(LIBMAD_LIB
@@ -20,7 +21,7 @@ SET(LIBMAD_INC
 
 add_filter(libmad
         "${LIBMAD_SRC}"
-        "${LIBMAD_LIB}"        
+        "${LIBMAD_LIB}"
         []
         GPAC_HAS_MAD
         "${LIBMAD_INC}"

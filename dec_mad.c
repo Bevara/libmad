@@ -52,7 +52,7 @@
 typedef struct
 {
 	GF_FilterPid *ipid, *opid;
-	
+
 	Bool configured;
 
 	u32 sample_rate, num_samples, num_channels;
@@ -183,7 +183,7 @@ static void maddec_finalize(GF_Filter *filter)
 	else if (chan < -MAD_F_ONE)				\
 		chan = -MAD_F_ONE;				\
 	ret = chan >> (MAD_F_FRACBITS + 1 - 16);		\
- 
+
 static GF_Err maddec_process(GF_Filter *filter)
 {
 	mad_fixed_t *left_ch, *right_ch, chan;
@@ -370,7 +370,7 @@ GF_FilterRegister MADRegister = {
 
 #endif
 
-const GF_FilterRegister *maddec_register(GF_FilterSession *session)
+const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE dynCall_maddec_register(GF_FilterSession *session)
 {
 #ifdef GPAC_HAS_MAD
 	return &MADRegister;
