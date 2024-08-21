@@ -13,5 +13,7 @@
     "filter_source": {
         "maddec": "dec_mad.c",
         "rfmp3": "reframe_mp3.c"
-    }
+    },
+    "Format": ["MPEG Audio"],
+    "licence_required":false
 }
