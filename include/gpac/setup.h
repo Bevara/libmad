@@ -54,9 +54,9 @@ For better portability, only use the base data types defined here.
 /*This is to handle cases where config.h is generated at the root of the gpac build tree (./configure)
 This is only needed when building libgpac and modules when libgpac is not installed*/
 #ifdef GPAC_HAVE_CONFIG_H
-# include "config.h"
+//# include "config.h"
 #else
-# include <gpac/configuration.h>
+//# include <gpac/configuration.h>
 #endif
 
 
@@ -856,6 +856,14 @@ size_t gf_strlcpy(char *dst, const char *src, size_t dsize);
 #define GPAC_ENABLE_DEBUG
 #endif
 #endif
+
+
+//! @cond Doxygen_Suppress
+/*needed for unittests (disabled)*/
+#ifndef GF_STATIC
+#define GF_STATIC static
+#endif
+//! @endcond
 
 #ifdef __cplusplus
 }
