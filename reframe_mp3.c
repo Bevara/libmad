@@ -935,3 +935,9 @@ const GF_FilterRegister *rfmp3_register(GF_FilterSession *session)
 	return NULL;
 }
 #endif // #if !defined(GPAC_DISABLE_AV_PARSERS) && !defined(GPAC_DISABLE_RFMP3)
+
+#include "filter_register.h"
+__attribute__((constructor))
+void register_rfmp3(void) {
+    gf_filter_auto_register("rfmp3", dynCall_rfmp3_register);
+}
