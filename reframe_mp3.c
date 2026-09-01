@@ -925,7 +925,7 @@ GF_FilterRegister MP3DmxRegister = {
 };
 
 
-const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE dynCall_rfmp3_register(GF_FilterSession *session)
+const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE rfmp3_register(GF_FilterSession *session)
 {
 	return &MP3DmxRegister;
 }
@@ -939,5 +939,5 @@ const GF_FilterRegister *rfmp3_register(GF_FilterSession *session)
 #include "filter_register.h"
 __attribute__((constructor))
 void register_rfmp3(void) {
-    gf_filter_auto_register("rfmp3", dynCall_rfmp3_register);
+    gf_filter_auto_register("rfmp3", rfmp3_register);
 }
