@@ -2,7 +2,7 @@
  *			GPAC - Multimedia Framework C SDK
  *
  *			Authors: Jean Le Feuvre
- *			Copyright (c) Telecom ParisTech 2005-2022
+ *			Copyright (c) Telecom ParisTech 2005-2024
  *					All rights reserved
  *
  *  This file is part of GPAC / MP3 libmad decoder filter
@@ -52,7 +52,7 @@
 typedef struct
 {
 	GF_FilterPid *ipid, *opid;
-
+	
 	Bool configured;
 
 	u32 sample_rate, num_samples, num_channels;
@@ -183,7 +183,7 @@ static void maddec_finalize(GF_Filter *filter)
 	else if (chan < -MAD_F_ONE)				\
 		chan = -MAD_F_ONE;				\
 	ret = chan >> (MAD_F_FRACBITS + 1 - 16);		\
-
+ 
 static GF_Err maddec_process(GF_Filter *filter)
 {
 	mad_fixed_t *left_ch, *right_ch, chan;
@@ -366,6 +366,7 @@ GF_FilterRegister MADRegister = {
 	.finalize = maddec_finalize,
 	.configure_pid = maddec_configure_pid,
 	.process = maddec_process,
+	.hint_class_type = GF_FS_CLASS_DECODER
 };
 
 #endif
@@ -380,7 +381,7 @@ const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE maddec_register(GF_FilterSession 
 }
 
 
-
+/*Bevara: side modules register their own filters at load time.*/
 #include "filter_register.h"
 __attribute__((constructor))
 void register_jxl_maddec(void) {

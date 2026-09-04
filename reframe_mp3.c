@@ -2,7 +2,7 @@
  *			GPAC - Multimedia Framework C SDK
  *
  *			Authors: Jean Le Feuvre
- *			Copyright (c) Telecom ParisTech 2000-2024
+ *			Copyright (c) Telecom ParisTech 2000-2026
  *					All rights reserved
  *
  *  This file is part of GPAC / MP3 reframer filter
@@ -285,8 +285,8 @@ void id3dmx_flush(GF_Filter *filter, u8 *id3_buf, u32 id3_buf_size, GF_FilterPid
 				if (!stricmp(buf+1, "comment")) {
 					id3dmx_set_string(audio_pid, "comment", sep+1, GF_FALSE);
 				} else {
-					strcpy(szTag, "tag_");
-					strncat(szTag, buf+1, 1019);
+					gf_strcpy(szTag, "tag_");
+					gf_strcat(szTag, buf+1);
 					id3dmx_set_string(audio_pid, szTag, sep+1, GF_TRUE);
 				}
 			}
@@ -415,9 +415,7 @@ static void mp3_dmx_check_pid(GF_Filter *filter, GF_MP3DmxCtx *ctx)
 	gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_CODECID, & PROP_UINT(ctx->codecid ) );
 	gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_SAMPLES_PER_FRAME, & PROP_UINT(gf_mp3_window_size(ctx->hdr) ) );
 
-	if (!gf_sys_is_test_mode() ) {
-		gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_BITRATE, & PROP_UINT(gf_mp3_bit_rate(ctx->hdr) ) );
-	}
+	gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_BITRATE, & PROP_UINT(gf_mp3_bit_rate(ctx->hdr) ) );
 
 	if (ctx->id3_buffer_size)
 		mp3_dmx_flush_id3(filter, ctx);
@@ -429,6 +427,7 @@ static Bool mp3_dmx_process_event(GF_Filter *filter, const GF_FilterEvent *evt)
 	u32 i;
 	GF_FilterEvent fevt;
 	GF_MP3DmxCtx *ctx = gf_filter_get_udta(filter);
+	if (!ctx->ipid) return GF_TRUE;
 
 	if (evt->base.on_pid != ctx->opid) return GF_TRUE;
 
@@ -762,9 +761,7 @@ drop_byte:
 
 static GF_Err mp3_dmx_initialize(GF_Filter *filter)
 {
-	GF_MP3DmxCtx *ctx = gf_filter_get_udta(filter);
-	//in test mode we keep strict signaling, eg MPEG-2 layer 3 is still mpeg2 audio
-	if (gf_sys_is_test_mode()) ctx->forcemp3 = GF_FALSE;
+	//GF_MP3DmxCtx *ctx = gf_filter_get_udta(filter);
 	return GF_OK;
 }
 
@@ -921,7 +918,8 @@ GF_FilterRegister MP3DmxRegister = {
 	.configure_pid = mp3_dmx_configure_pid,
 	.process = mp3_dmx_process,
 	.probe_data = mp3_dmx_probe_data,
-	.process_event = mp3_dmx_process_event
+	.process_event = mp3_dmx_process_event,
+	.hint_class_type = GF_FS_CLASS_FRAMING
 };
 
 
@@ -930,12 +928,13 @@ const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE rfmp3_register(GF_FilterSession *
 	return &MP3DmxRegister;
 }
 #else
-const GF_FilterRegister *rfmp3_register(GF_FilterSession *session)
+const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE rfmp3_register(GF_FilterSession *session)
 {
 	return NULL;
 }
 #endif // #if !defined(GPAC_DISABLE_AV_PARSERS) && !defined(GPAC_DISABLE_RFMP3)
 
+/*Bevara: side modules register their own filters at load time.*/
 #include "filter_register.h"
 __attribute__((constructor))
 void register_rfmp3(void) {
