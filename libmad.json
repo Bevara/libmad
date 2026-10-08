@@ -15,5 +15,6 @@
         "rfmp3": "reframe_mp3.c"
     },
     "Format": ["MPEG Audio"],
-    "licence_required":false
+    "licence_required":false,
+    "using": ["solver_minimal_1"]
 }
