@@ -2,7 +2,7 @@ SPDX-License-Identifier: LGPL-2.1-or-later AND GPL-2.0-or-later
 
 libmad - MPEG audio decoder accessor
 
-This accessor is a combined work: its filter sources come from GPAC, Copyright (c) Telecom Paris, under LGPL-2.1-or-later, adapted by Bevara (Copyright (c) 2026 Bevara); it statically links libmad 0.15.1b (Underbit Technologies) under GPL-2.0-or-later.
+This accessor is a combined work: its filter sources come from GPAC, Copyright (c) Telecom Paris, under LGPL-2.1-or-later, adapted by Bevara Technologies, LLC (Copyright (c) 2026 Bevara Technologies, LLC); it statically links libmad 0.15.1b (Underbit Technologies) under GPL-2.0-or-later.
 
 Taken as a whole, the accessor is distributed under GPL-2.0-or-later, as libmad requires: whoever distributes it must also offer its corresponding source.
 
