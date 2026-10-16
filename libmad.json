@@ -15,6 +15,10 @@
         "rfmp3": "reframe_mp3.c"
     },
     "Format": ["MPEG Audio"],
-    "licence_required":false,
-    "using": ["solver_minimal_1"]
+    "using": ["solver_minimal_1"],
+    "patents": {
+        "status": "expired",
+        "note": "MPEG audio layer 3, 2017",
+        "checked": "2026-10-16"
+    }
 }
