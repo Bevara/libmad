@@ -1,5 +1,6 @@
 {
     "name": "libmad",
+    "version": "1.0.1",
     "description": "MAD decoder",
     "filters": [
         "maddec",
