@@ -1,6 +1,6 @@
 {
     "name": "libmad",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "MAD decoder",
     "filters": [
         "maddec",
@@ -16,7 +16,7 @@
         "rfmp3": "reframe_mp3.c"
     },
     "Format": ["MPEG Audio"],
-    "using": ["solver_minimal_1"],
+    "using": ["solver_minimal_1", "solver_1"],
     "patents": {
         "status": "expired",
         "note": "MPEG audio layer 3, 2017",
